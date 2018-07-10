@@ -30,6 +30,7 @@ events {
 http {
   include       <%= node['openresty']['dir'] %>/mime.types;
   default_type  application/octet-stream;
+  charset_types text/css text/plain text/vnd.wap.wml application/javascript application/json application/rss+xml application/xml;
 
   <% unless node['openresty']['disable_access_log'] -%>
   access_log	<%= node['openresty']['log_dir'] %>/access.log;
@@ -91,6 +92,8 @@ http {
   client_body_buffer_size <%= node['openresty']['client_body_buffer_size'] %>;
   large_client_header_buffers <%= node['openresty']['large_client_header_buffers'] %>;
 
+  variables_hash_max_size <%= node['openresty']['variables_hash_max_size'] %>;
+  variables_hash_bucket_size <%= node['openresty']['variables_hash_bucket_size'] %>;
   server_names_hash_bucket_size <%= node['openresty']['server_names_hash_bucket_size'] %>;
   types_hash_max_size <%= node['openresty']['types_hash_max_size'] %>;
   types_hash_bucket_size <%= node['openresty']['types_hash_bucket_size'] %>;

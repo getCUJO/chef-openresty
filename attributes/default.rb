@@ -157,6 +157,9 @@ default['openresty']['large_client_header_buffers']   = '32 32k'
 default['openresty']['types_hash_max_size']           = 2048
 default['openresty']['types_hash_bucket_size']        = 64
 
+default['openresty']['variables_hash_max_size']        = 1024
+default['openresty']['variables_hash_bucket_size']     = 64
+
 # Open file cache - for metadata operations only
 default['openresty']['open_file_cache'] = {
   'max'       => 1000,
@@ -198,4 +201,3 @@ default['openresty']['resolver_ttl']                 = '10s'
 # LUA package paths
 default['openresty']['lua_package_path']             = nil
 default['openresty']['lua_package_cpath']            = nil
-
