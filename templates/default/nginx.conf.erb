@@ -10,7 +10,7 @@ worker_rlimit_nofile <%= node['openresty']['worker_rlimit_nofile'] %>;
 
 <% if node['openresty']['env'] %>
   <% node['openresty']['env'].each do |name, string| %>
-env <%= name %> '<%= string %>';
+env <%= name %>=<%= string %>;
   <% end %>
 <% end %>
 
