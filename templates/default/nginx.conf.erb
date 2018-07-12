@@ -9,8 +9,8 @@ worker_rlimit_nofile <%= node['openresty']['worker_rlimit_nofile'] %>;
 <% end -%>
 
 <% if node['openresty']['env'] && node['url-checker-service']['proxy']['jwt'] %>
-env <%= @jwt_secret %>;
-env <%= node['openresty']['env']['JWT_SECRET_IS_BASE64_ENCODED'] %>;
+env JWT_SECRET=<%= @jwt_secret %>;
+env JWT_SECRET_IS_BASE64_ENCODED=<%= node['openresty']['env']['JWT_SECRET_IS_BASE64_ENCODED'] %>;
 <% end %>
 
 error_log  <%= node['openresty']['log_dir'] %>/error.log;
