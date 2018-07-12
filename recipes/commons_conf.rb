@@ -21,6 +21,8 @@
 #
 
 require 'chef/version_constraint'
+require 'chef-vault'
+require_relative '../providers/split_and_expand'
 
 kernel_supports_aio = Chef::VersionConstraint.new('>= 2.6.22').include?(node['kernel']['release'].split('-').first.chomp('+'))
 
@@ -55,7 +57,13 @@ template 'nginx.conf' do
   owner 'root'
   group 'root'
   mode 00644
-  variables :kernel_supports_aio => kernel_supports_aio
+  variables(
+    {
+      :kernel_supports_aio => kernel_supports_aio,
+      :jwt_secret => split_and_expand(node['openresty']['env']['JWT_SECRET']),
+      :base64_encoded => split_and_expand(node['openresty']['env']['JWT_SECRET_IS_BASE64_ENCODED'])
+    }
+  )
   if node['openresty']['service']['start_on_boot']
     notifies :reload, node['openresty']['service']['resource']
   end
