@@ -61,7 +61,7 @@ template 'nginx.conf' do
     {
       :kernel_supports_aio => kernel_supports_aio,
       :jwt_secret => split_and_expand(node['openresty']['env']['JWT_SECRET']),
-      :base64_encoded => split_and_expand(node['openresty']['env']['JWT_SECRET_IS_BASE64_ENCODED'])
+      :base64_encoded => node['openresty']['env']['JWT_SECRET_IS_BASE64_ENCODED']
     }
   )
   if node['openresty']['service']['start_on_boot']
