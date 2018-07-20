@@ -24,6 +24,8 @@
 default['openresty']['service']['recipe'] = case node['platform_family']
     when 'suse'
         'openresty::service_systemd'
+    when 'ubuntu', 'debian'
+        'openresty::service_systemd'
     when 'rhel'
         if node['platform_version'].to_i >= 7 && node['platform'] != 'amazon'
             'openresty::service_systemd'

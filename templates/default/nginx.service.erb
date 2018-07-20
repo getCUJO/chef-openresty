@@ -5,9 +5,10 @@ After=network.target remote-fs.target nss-lookup.target
 [Service]
 Type=forking
 PIDFile=<%= @pid %>
-ExecStartPre=<%= @src_binary %> -t
-ExecStart=<%= @src_binary %>
+ExecStartPre=<%= @src_binary %> -t -c <%= node['openresty']['source']['conf_path'] %>
+ExecStart=<%= @src_binary %> -c <%= node['openresty']['source']['conf_path'] %>
 ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
 KillMode=process
 KillSignal=SIGQUIT
 TimeoutStopSec=5
