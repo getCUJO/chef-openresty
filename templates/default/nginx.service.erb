@@ -4,6 +4,9 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=forking
+<% if node['openresty']['LimitNOFILE'] %>
+LimitNOFILE=<%= node['openresty']['LimitNOFILE'] %>
+<% end -%>
 PIDFile=<%= @pid %>
 ExecStartPre=<%= @src_binary %> -t -c <%= node['openresty']['source']['conf_path'] %>
 ExecStart=<%= @src_binary %> -c <%= node['openresty']['source']['conf_path'] %>
