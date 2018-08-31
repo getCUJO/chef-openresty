@@ -13,7 +13,9 @@ env JWT_SECRET=<%= @jwt_secret %>;
 env JWT_SECRET_IS_BASE64_ENCODED=<%= node['openresty']['env']['JWT_SECRET_IS_BASE64_ENCODED'] %>;
 <% end %>
 
+<% unless node['openresty']['disable_error_log'] -%>
 error_log  <%= node['openresty']['log_dir'] %>/error.log;
+<% end %>
 pid        <%= node['openresty']['pid'] %>;
 
 events {
