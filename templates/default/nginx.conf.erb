@@ -35,6 +35,8 @@ http {
 
   <% unless node['openresty']['disable_access_log'] -%>
   access_log	<%= node['openresty']['log_dir'] %>/access.log;
+  <% else %>
+  access_log off;
   <% end %>
 
   <% if @kernel_supports_aio  && node['openresty']['try_aio'] %>
