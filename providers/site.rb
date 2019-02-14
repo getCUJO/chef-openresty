@@ -32,13 +32,13 @@ action :enable do
       variables new_resource.variables
       cookbook new_resource.cookbook
       if node['openresty']['service']['start_on_boot']
-        notifies :reload, node['openresty']['service']['resource'], new_resource.timing
+        notifies :restart, node['openresty']['service']['resource'], new_resource.timing
       end
     end
   end
   site = execute "nxensite #{link_name}" do
     command "/usr/sbin/nxensite #{link_name}"
-    notifies :reload, node['openresty']['service']['resource'], new_resource.timing
+    notifies :restart, node['openresty']['service']['resource'], new_resource.timing
     not_if { ::File.symlink?("#{node['openresty']['dir']}/sites-enabled/#{link_name}") }
   end
   if site.updated_by_last_action? || (tpl.updated_by_last_action? rescue false)
@@ -51,7 +51,7 @@ action :disable do
   site = execute "nxdissite #{link_name}" do
     command "/usr/sbin/nxdissite #{link_name}"
     if node['openresty']['service']['start_on_boot']
-      notifies :reload, node['openresty']['service']['resource'], new_resource.timing
+      notifies :restart, node['openresty']['service']['resource'], new_resource.timing
     end
     only_if { ::File.symlink?("#{node['openresty']['dir']}/sites-enabled/#{link_name}") }
   end
